@@ -1,0 +1,6 @@
+.popup__tooltip-icon_success{
+  margin: 0 auto;
+  width: 120px;
+  height: 120px;
+  background-image: url(../../../../icons/icon-tooltip-success.svg);
+}

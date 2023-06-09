@@ -1,0 +1,15 @@
+.profile__info {
+  margin-top: 20px;
+  width: calc(100% - 340px);
+  padding-left: 30px;
+}
+
+@media (max-width: 896px) {
+  .profile__info {
+    padding-left: 0;
+    margin-top: 26px;
+    margin: 0 auto;
+    justify-content: center;
+    width: 100%;
+  }
+}

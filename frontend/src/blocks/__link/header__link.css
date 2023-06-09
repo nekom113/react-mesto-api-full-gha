@@ -1,0 +1,21 @@
+.header__link {
+  display: block;
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  line-height: 17px;
+  opacity: 1;
+  transition: opacity .3s ease-in-out;
+}
+
+.header__link:hover {
+  opacity: .4;
+}
+
+@media (min-width: 990px) {
+  .header__link {
+    font-size: 18px;
+    line-height: 22px;
+  }
+}
+

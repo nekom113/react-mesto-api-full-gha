@@ -1,0 +1,7 @@
+.header__right-container {
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  gap: 24px;
+}

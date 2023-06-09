@@ -1,0 +1,15 @@
+.header__columns {
+  padding: 30px 31px;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@media (max-width: 600px) {
+  .header__columns {
+    flex-direction: column;
+    padding: 45px 0 40px 0;
+  }
+}

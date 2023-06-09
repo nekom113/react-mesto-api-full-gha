@@ -1,0 +1,13 @@
+.profile__title-wrapper {
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+@media (max-width: 896px) {
+  .profile__title-wrapper {
+    min-width: 282px;
+    justify-content: center;
+  }
+}

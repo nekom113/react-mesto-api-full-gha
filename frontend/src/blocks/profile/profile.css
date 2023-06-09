@@ -1,0 +1,16 @@
+.profile {
+  padding-top: 42px;
+  max-width: calc(100% - 38px);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 896px) {
+  .profile {
+    margin: 0 auto 16px;
+    flex-direction: row;
+    justify-content: space-between;
+    max-width: 880px;
+  }
+}
