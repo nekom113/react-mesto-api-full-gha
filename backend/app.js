@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const { errors } = require('celebrate');
 const helmet = require('helmet');
+const cors = require('cors');
 const router = require('./routes');
 const { errorHandler } = require('./middlewares/error_handler');
 const { limiter } = require('./utils/utils');
@@ -18,7 +19,7 @@ const start = async () => {
   }
 };
 start();
-
+app.use(cors());
 app.use('/', router);
 app.use(errors());
 app.use(errorHandler);
