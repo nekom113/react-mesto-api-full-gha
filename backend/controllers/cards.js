@@ -7,8 +7,8 @@ const {
 } = require('../utils/status_codes');
 
 const createCard = (req, res, next) => {
-  const {name, link} = req.body;
-  Card.create({name, link, owner: req.user._id})
+  const { name, link } = req.body;
+  Card.create({ name, link, owner: req.user._id })
     .then((card) => {
       res.status(STATUS_CODE_CREATED.code).send(card);
     })
@@ -52,8 +52,8 @@ const deleteCard = (req, res, next) => {
 const likeCard = (req, res, next) => {
   Card.findByIdAndUpdate(
     req.params.cardId,
-    {$addToSet: {likes: req.user._id}},
-    {new: true},
+    { $addToSet: { likes: req.user._id } },
+    { new: true },
   )
     .then((card) => {
       if (!card) {
@@ -61,18 +61,18 @@ const likeCard = (req, res, next) => {
       }
       return res.status(STATUS_CODE_OK.code).send(card);
     }).catch((err) => {
-    if (err.name === 'CastError') {
-      return next(new BadRequestError(BAD_REQUEST_CODE.message));
-    }
-    return next(err);
-  });
+      if (err.name === 'CastError') {
+        return next(new BadRequestError(BAD_REQUEST_CODE.message));
+      }
+      return next(err);
+    });
 };
 
 const dislikeCard = (req, res, next) => {
   Card.findByIdAndUpdate(
     req.params.cardId,
-    {$pull: {likes: req.user._id}},
-    {new: true},
+    { $pull: { likes: req.user._id } },
+    { new: true },
   )
     .then((card) => {
       if (!card) {
