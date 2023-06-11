@@ -25,32 +25,28 @@ function App() {
   const [isAddPlacePopupOpen, setAddPlacePopupOpen] = useState(false)
   const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = useState(false)
   const [selectedCard, setSelectedCard] = useState(null)
-  const [currentUser, setCurrentUser] = useState({loaded: false})
+  const [currentUser, setCurrentUser] = useState({})
   const [cards, setCards] = useState([])
 
   useEffect(() => {
     api.getDataApi().then(([profileData, cardsData]) => {
-      setCurrentUser({...profileData, loaded: true})
+      setCurrentUser({profileData})
       setCards(cardsData)
     }).catch(err => {
       console.error(err);
-      setCurrentUser({loaded:true})
     });
   }, [])
 
   useEffect(() => {
-    console.log({localStorage: localStorage.getItem('jwt')});
     if (localStorage.getItem('jwt')) {
       auth.checkDataUser(localStorage.getItem('jwt'))
         .then(({ data }) => {
-console.log({data});
-          
           setLoggedIn(true);
           setUserEmail(data?.email);
         })
         .then(() => navigate("/", { replace: true }))
     }
-  }, [])
+  }, [navigate])
   const handleSignOut = () => {
     localStorage.clear('jwt');
     setLoggedIn(false);
@@ -142,10 +138,8 @@ console.log({data});
         <Routes>
           <Route
             path='/'
-            exact
             element={<ProtectedRouteElement
               element={Main} loggedIn={loggedIn}
-              loaded={currentUser?.loaded}
               onAddPlace={handleAddPlaceClick}
               onEditAvatar={handleEditAvatarClick}
               onEditProfile={handleEditProfileClick}
@@ -156,7 +150,6 @@ console.log({data});
             />}
           />
           <Route
-          exact
             path='/sign-in'
             element={<Login
               navigate={navigate}
