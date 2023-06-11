@@ -1,7 +1,8 @@
+import { BASE_URL, getJWTByLocalStorage } from "./utils";
+
 class Api {
-  constructor({ baseUrl, headers }) {
+  constructor({ baseUrl }) {
     this._baseUrl = baseUrl;
-    this._headers = headers
   }
   _checkResponse(res) {
     if (res.ok) {
@@ -10,14 +11,23 @@ class Api {
     return Promise.reject(`Ошибка: ${res.status}`)
   }
   getProfileData() {
+    const token = getJWTByLocalStorage()
+
     return fetch(`${this._baseUrl}/users/me`, {
-      headers: this._headers
+      headers: {
+        authorization:`Bearer ${token}`,
+        'Content-Type': 'application/json'  
+      }
     })
       .then(this._checkResponse)
   }
   getCardsData() {
+    const token = getJWTByLocalStorage()
     return fetch(`${this._baseUrl}/cards`, {
-      headers: this._headers
+      headers: {
+        authorization:`Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
     })
       .then(this._checkResponse)
   }
@@ -25,9 +35,13 @@ class Api {
     return Promise.all([this.getProfileData(), this.getCardsData()])
   }
   setProfileInfo({ name, about }) {
+    const token = getJWTByLocalStorage()
     return fetch(`${this._baseUrl}/users/me`, {
       method: 'PATCH',
-      headers: this._headers,
+      headers: {
+        authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify({
         name,
         about
@@ -36,9 +50,13 @@ class Api {
       .then(this._checkResponse)
   }
   setProfileAvatar({ link }) {
+    const token = getJWTByLocalStorage()
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: 'PATCH',
-      headers: this._headers,
+      headers: {
+        authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify({
         avatar: link
       })
@@ -46,9 +64,13 @@ class Api {
       .then(this._checkResponse)
   }
   addNewCard({ name, link }) {
+    const token = getJWTByLocalStorage()
     return fetch(`${this._baseUrl}/cards`, {
       method: 'POST',
-      headers: this._headers,
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify({
         name,
         link
@@ -57,32 +79,42 @@ class Api {
       .then(this._checkResponse)
   }
   deleteCard(cardId) {
+    const token = getJWTByLocalStorage()
+    console.log(`${this._baseUrl}/cards/${cardId}`);
     return fetch(`${this._baseUrl}/cards/${cardId}`, {
       method: 'DELETE',
-      headers: this._headers
+      headers: {
+        authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
     })
       .then(this._checkResponse)
   }
   addLike(id) {
+    const token = getJWTByLocalStorage()
     return fetch(`${this._baseUrl}/cards/${id}/likes`, {
       method: 'PUT',
-      headers: this._headers
+      headers: {
+        authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
     })
       .then(this._checkResponse)
   }
   deleteLike(id) {
+    const token = getJWTByLocalStorage()
     return fetch(`${this._baseUrl}/cards/${id}/likes`, {
       method: 'DELETE',
-      headers: this._headers
+      headers: {
+        authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
     })
       .then(this._checkResponse)
   }
 }
 const apiSettings = {
-  // baseUrl: 'https://nomoreparties.co/v1/cohort-60', // Ya.Practicum server
-  // baseUrl: 'http://127.0.0.1:3033', // local Server
-  baseUrl: 'https://api.mesto-piontek.nomoredomains.rocks',
-
+  baseUrl:BASE_URL,
   headers: {
     // authorization: 'b9d2bdc1-ae00-4313-af72-93c27d31b82b', // ya.practicum token
     "Authorization": `Bearer ${localStorage.getItem('jwt')}`,

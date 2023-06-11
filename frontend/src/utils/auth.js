@@ -1,3 +1,4 @@
+import { BASE_URL } from "./utils";
 class Auth {
   constructor(options) {
     this._baseUrl = options.baseUrl;
@@ -45,12 +46,9 @@ class Auth {
   }
 }
 const authSetting = {
-  // baseUrl: 'https://api.mesto-piontek.nomoredomains.rocks',
-  // baseUrl: 'https://auth.nomoreparties.co',
-  baseUrl: 'http://127.0.0.1:3033',
-
+  baseUrl: BASE_URL,
   headers: {
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
   }
 }
 

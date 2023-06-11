@@ -54,12 +54,15 @@ const likeCard = (req, res, next) => {
     { $addToSet: { likes: req.user._id } },
     { new: true },
   )
+    .populate('likes')
+    .orFail(() => new NotFoundError(NOT_FOUND_ERROR_CODE.messages.cardIsNotFound))
     .then((card) => {
       if (!card) {
         return next(new NotFoundError(NOT_FOUND_ERROR_CODE.messages.cardIsNotFound));
       }
       return res.status(STATUS_CODE_OK.code).send(card);
-    }).catch((err) => {
+    })
+    .catch((err) => {
       if (err.name === 'CastError') {
         return next(new BadRequestError(BAD_REQUEST_CODE.message));
       }
