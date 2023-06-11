@@ -45,7 +45,10 @@ class Auth {
   }
 }
 const authSetting = {
-  baseUrl: 'https://auth.nomoreparties.co',
+  // baseUrl: 'https://api.mesto-piontek.nomoredomains.rocks',
+  // baseUrl: 'https://auth.nomoreparties.co',
+  baseUrl: 'http://127.0.0.1:3033',
+
   headers: {
     'Content-Type': 'application/json'
   }

@@ -9,7 +9,7 @@ const { limiter } = require('./utils/utils');
 
 const app = express();
 
-const { PORT = 3000 } = process.env;
+const { PORT = 3033 } = process.env;
 
 const start = async () => {
   try {

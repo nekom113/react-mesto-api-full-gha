@@ -10,7 +10,7 @@ const createCard = (req, res, next) => {
   const { name, link } = req.body;
   Card.create({ name, link, owner: req.user._id })
     .then((card) => {
-      res.status(STATUS_CODE_CREATED.code).send({ card });
+      res.status(STATUS_CODE_CREATED.code).send(card);
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
@@ -24,7 +24,7 @@ const getCards = (req, res, next) => {
   Card.find({})
     .then((card) => {
       res.status(STATUS_CODE_OK.code)
-        .send({ card });
+        .send(card);
     }).catch(next);
 };
 
@@ -38,7 +38,7 @@ const deleteCard = (req, res, next) => {
         return next(new ForbiddenError(FORBIDDEN_ERROR_CODE.message));
       }
       return Card.deleteOne(card).then(
-        res.status(STATUS_CODE_OK.code).send({ card }),
+        res.status(STATUS_CODE_OK.code).send(card),
       );
     })
     .catch((err) => {
@@ -58,7 +58,7 @@ const likeCard = (req, res, next) => {
       if (!card) {
         return next(new NotFoundError(NOT_FOUND_ERROR_CODE.messages.cardIsNotFound));
       }
-      return res.status(STATUS_CODE_OK.code).send({ card });
+      return res.status(STATUS_CODE_OK.code).send(card);
     }).catch((err) => {
       if (err.name === 'CastError') {
         return next(new BadRequestError(BAD_REQUEST_CODE.message));

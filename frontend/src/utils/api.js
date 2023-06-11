@@ -79,9 +79,13 @@ class Api {
   }
 }
 const apiSettings = {
-  baseUrl: 'https://nomoreparties.co/v1/cohort-60',
+  // baseUrl: 'https://nomoreparties.co/v1/cohort-60', // Ya.Practicum server
+  // baseUrl: 'http://127.0.0.1:3033', // local Server
+  baseUrl: 'https://api.mesto-piontek.nomoredomains.rocks',
+
   headers: {
-    authorization: 'b9d2bdc1-ae00-4313-af72-93c27d31b82b',
+    // authorization: 'b9d2bdc1-ae00-4313-af72-93c27d31b82b', // ya.practicum token
+    "Authorization": `Bearer ${localStorage.getItem('jwt')}`,
     'Content-Type': 'application/json'
   }
 }
