@@ -10,6 +10,7 @@
   background: transparent url(../../../icons/Trash_icon.svg);
   cursor: pointer;
   transition: opacity 0.5s ease-in-out;
+  box-shadow: 2px 5px 6px 2px rgba(88, 88, 94, 0.2);
 }
 
 .card__remove-button:hover {

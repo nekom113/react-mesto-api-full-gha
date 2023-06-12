@@ -44,7 +44,8 @@ const deleteCard = (req, res, next) => {
     .catch((err) => {
       if (err.name === 'CastError') {
         return next(new BadRequestError(BAD_REQUEST_CODE.message));
-      } return next(err);
+      }
+      return next(err);
     });
 };
 
@@ -78,12 +79,13 @@ const dislikeCard = (req, res, next) => {
         return next(new NotFoundError(NOT_FOUND_ERROR_CODE.messages.cardIsNotFound));
       }
       return res.status(STATUS_CODE_OK.code)
-        .send({ card });
+        .send(card);
     })
     .catch((err) => {
       if (err.name === 'CastError') {
         return next(new BadRequestError(BAD_REQUEST_CODE.message));
-      } return next(err);
+      }
+      return next(err);
     });
 };
 
