@@ -6,6 +6,7 @@ const cors = require('cors');
 const router = require('./routes');
 const { errorHandler } = require('./middlewares/error_handler');
 const { limiter } = require('./utils/utils');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const app = express();
 
@@ -20,7 +21,9 @@ const start = async () => {
 };
 start();
 app.use(cors());
+app.use(requestLogger);
 app.use('/', router);
+app.use(errorLogger);
 app.use(errors());
 app.use(errorHandler);
 app.use(helmet());
