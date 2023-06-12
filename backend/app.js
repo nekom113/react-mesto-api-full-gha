@@ -14,6 +14,7 @@ const {
   PORT = 3000,
 } = process.env;
 const app = express();
+
 app.use(cors());
 
 const start = async () => {
@@ -24,6 +25,8 @@ const start = async () => {
   }
 };
 start();
+app.use(limiter);
+app.use(helmet());
 app.use(requestLogger);
 app.get('/crash-test', () => {
   setTimeout(() => {
@@ -34,7 +37,5 @@ app.use('/', router);
 app.use(errorLogger);
 app.use(errors());
 app.use(errorHandler);
-app.use(helmet());
-app.use(limiter);
 
 app.listen(PORT, console.log(`Server is working on PORT: ${PORT}`));

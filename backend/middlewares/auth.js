@@ -8,7 +8,7 @@ const authToken = (req, res, next) => {
   const { authorization } = req.headers;
 
   if (!authorization || !authorization.startsWith('Bearer ')) {
-    next(
+    return next(
       new UnauthorizedError(UNAUTHORIZED_ERROR_CODE.messages.authorizationError),
     );
   }
@@ -21,7 +21,9 @@ const authToken = (req, res, next) => {
       NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret',
     );
   } catch (err) {
-    return next(err);
+    return next(
+      new UnauthorizedError(UNAUTHORIZED_ERROR_CODE.messages.authorizationError),
+    );
   }
 
   req.user = payload;

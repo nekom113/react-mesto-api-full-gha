@@ -14,7 +14,7 @@ const userRouter = express.Router();
 userRouter.use(express.json());
 
 userRouter.get('/', getUsers);
-userRouter.get('/me', getCurrentUserValidation, getCurrentUser);
+userRouter.get('/me', getCurrentUser);
 userRouter.get('/:userId', getUserByIdValidation, getUserById);
 
 userRouter.patch('/me', userProfileUpdateValidation, userProfileUpdate);

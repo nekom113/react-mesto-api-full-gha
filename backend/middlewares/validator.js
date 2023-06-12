@@ -50,15 +50,6 @@ module.exports.loginValidation = celebrate({
     }),
 });
 
-module.exports.getCurrentUserValidation = celebrate({
-  params: Joi
-    .object()
-    .keys({
-      userId: Joi
-        .string()
-        .custom(idValidation),
-    }),
-});
 module.exports.getUserByIdValidation = celebrate({
   params: Joi
     .object()
@@ -81,6 +72,7 @@ module.exports.userProfileUpdateValidation = celebrate({
         .max(30),
       about: Joi
         .string()
+        .required()
         .min(2)
         .max(30),
     }),
@@ -119,6 +111,7 @@ module.exports.deleteCardValidation = celebrate({
     .keys({
       cardId: Joi
         .string()
+        .required()
         .custom(idValidation),
     }),
 });
@@ -129,6 +122,7 @@ module.exports.likeCardValidation = celebrate({
     .keys({
       cardId: Joi
         .string()
+        .required()
         .custom(idValidation),
     }),
 });
@@ -139,6 +133,7 @@ module.exports.dislikeCardValidation = celebrate({
     .keys({
       cardId: Joi
         .string()
+        .required()
         .custom(idValidation),
     }),
 });

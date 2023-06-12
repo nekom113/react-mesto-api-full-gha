@@ -84,7 +84,7 @@ const userProfileUpdate = (req, res, next) => {
       return res.status(STATUS_CODE_OK.code).send(user);
     })
     .catch((err) => {
-      if (err.name === 'CastError' || err.name === 'ValidationError') {
+      if (err.name === 'ValidationError') {
         return new BadRequestError(BAD_REQUEST_CODE.message);
       }
       return next(err);
