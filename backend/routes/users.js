@@ -3,7 +3,6 @@ const {
   getUsers, userProfileUpdate, userAvatarUpdate, getCurrentUser, getUserById,
 } = require('../controllers/users');
 const {
-  getCurrentUserValidation,
   userAvatarUpdateValidation,
   userProfileUpdateValidation,
   getUserByIdValidation,
