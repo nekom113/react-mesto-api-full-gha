@@ -21,7 +21,7 @@ const useClickClosePopup = (closePopup, isOpenPopup) => {
       document.removeEventListener('keydown', handleClickByEsc)
       document.removeEventListener("mousedown", handleOverlay);
     }
-  }, [isOpenPopup])
+  }, [closePopup, isOpenPopup])
 }
 
 
