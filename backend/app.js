@@ -9,6 +9,7 @@ const { limiter } = require('./utils/utils');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const app = express();
+app.use(cors());
 
 const { PORT = 3000 } = process.env;
 
@@ -20,7 +21,6 @@ const start = async () => {
   }
 };
 start();
-app.use(cors());
 app.use(requestLogger);
 app.use('/', router);
 app.use(errorLogger);
