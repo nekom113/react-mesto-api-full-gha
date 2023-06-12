@@ -1,5 +1,7 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+
+const { NODE_ENV, JWT_SECRET } = process.env;
 const User = require('../models/user');
 const {
   STATUS_CODE_CREATED,
@@ -58,18 +60,18 @@ const getUserById = (req, res, next) => {
       }
       return res.status(STATUS_CODE_OK.code).send(user);
     }).catch((err) => {
-    if (err.name === 'CastError') {
-      return new BadRequestError(BAD_REQUEST_CODE.message);
-    }
-    return next(err);
-  });
+      if (err.name === 'CastError') {
+        return new BadRequestError(BAD_REQUEST_CODE.message);
+      }
+      return next(err);
+    });
 };
 
 const userProfileUpdate = (req, res, next) => {
-  const {name, about} = req.body;
+  const { name, about } = req.body;
   User.findOneAndUpdate(
-    {_id: req.user._id},
-    {name, about},
+    { _id: req.user._id },
+    { name, about },
     {
       new: true,
       runValidators: true,
@@ -90,10 +92,10 @@ const userProfileUpdate = (req, res, next) => {
 };
 
 const userAvatarUpdate = (req, res, next) => {
-  const {avatar} = req.body;
+  const { avatar } = req.body;
   User.findOneAndUpdate(
-    {_id: req.user._id},
-    {avatar},
+    { _id: req.user._id },
+    { avatar },
     {
       new: true,
       runValidators: true,
@@ -114,9 +116,9 @@ const userAvatarUpdate = (req, res, next) => {
 };
 
 const login = (req, res, next) => {
-  const {email, password} = req.body;
+  const { email, password } = req.body;
 
-  User.findOne({email})
+  User.findOne({ email })
     .select('+password')
     .then((user) => {
       if (!user) {
@@ -131,8 +133,12 @@ const login = (req, res, next) => {
               new UnauthorizedError(UNAUTHORIZED_ERROR_CODE.messages.incorrectEmailOrPassword),
             );
           }
-          const token = jwt.sign({_id: user._id}, 'SECRET_KEY', {expiresIn: '1d'});
-          return res.status(STATUS_CODE_OK.code).send({token});
+          const token = jwt.sign(
+            { _id: user._id },
+            NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret',
+            { expiresIn: '1d' },
+          );
+          return res.status(STATUS_CODE_OK.code).send({ token });
         });
     })
     .catch(next);
