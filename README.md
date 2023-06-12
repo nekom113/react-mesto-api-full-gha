@@ -9,8 +9,8 @@
 
 ## Ссылки на проект
 
-IP-адрес: 84.201.156.234
+IP 84.201.156.234
 
-Frontend: https://mesto-piontek.nomoredomai.nomoredomains.rocks/
+Frontend https://mesto-piontek.nomoredomai.nomoredomains.rocks/ 
 
-Backend: https://api.mesto-piontek.nomoredomains.rocks/
+Backend https://api.mesto-piontek.nomoredomains.rocks/
